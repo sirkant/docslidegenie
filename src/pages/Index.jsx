@@ -1,8 +1,6 @@
 import React from 'react';
 import UrlSubmissionForm from '../components/UrlSubmissionForm';
 import ResultDisplay from '../components/ResultDisplay';
-import AuthWrapper from '../components/AuthWrapper';
-import { UserButton } from "@clerk/clerk-react";
 
 const Index = () => {
   const [result, setResult] = React.useState(null);
@@ -16,18 +14,13 @@ const Index = () => {
   };
 
   return (
-    <AuthWrapper>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold">FromDocToDeck</h1>
-            <UserButton />
-          </div>
-          <UrlSubmissionForm onSubmit={handleSubmit} />
-          {result && <ResultDisplay result={result} />}
-        </div>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6 text-center">Convert Your Docs to Slides</h1>
+      <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+        <UrlSubmissionForm onSubmit={handleSubmit} />
+        {result && <ResultDisplay result={result} />}
       </div>
-    </AuthWrapper>
+    </div>
   );
 };
 
