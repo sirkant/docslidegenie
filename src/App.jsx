@@ -10,6 +10,10 @@ const queryClient = new QueryClient();
 // Use the environment variable for the Clerk publishable key
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
+if (!clerkPubKey) {
+  throw new Error("Missing Clerk Publishable Key");
+}
+
 const App = () => (
   <ClerkProvider publishableKey={clerkPubKey}>
     <QueryClientProvider client={queryClient}>
