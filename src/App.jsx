@@ -7,8 +7,8 @@ import { navItems } from "./nav-items";
 
 const queryClient = new QueryClient();
 
-// Replace with your actual Clerk publishable key
-const clerkPubKey = "your_clerk_publishable_key_here";
+// Use the environment variable for the Clerk publishable key
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 const App = () => (
   <ClerkProvider publishableKey={clerkPubKey}>
