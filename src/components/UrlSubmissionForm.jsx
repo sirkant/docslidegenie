@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { getDocumentContent } from '../utils/googleDocsApi';
+import { getDocumentContent, extractDocId } from '../utils/googleDocsApi';
 
 const UrlSubmissionForm = ({ onSubmit }) => {
   const [url, setUrl] = useState('');
@@ -13,6 +13,9 @@ const UrlSubmissionForm = ({ onSubmit }) => {
 
     try {
       const docId = extractDocId(url);
+      if (!docId) {
+        throw new Error('Invalid Google Docs URL');
+      }
       const content = await getDocumentContent(docId);
       onSubmit(content);
     } catch (error) {
@@ -21,11 +24,6 @@ const UrlSubmissionForm = ({ onSubmit }) => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const extractDocId = (url) => {
-    const match = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
-    return match ? match[1] : null;
   };
 
   return (

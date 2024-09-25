@@ -1,23 +1,13 @@
-import { google } from 'googleapis';
-
-const auth = new google.auth.GoogleAuth({
-  keyFile: 'path/to/your/credentials.json', // You'll need to set this up
-  scopes: ['https://www.googleapis.com/auth/documents.readonly'],
-});
-
+// This is a mock function to simulate fetching document content
 export async function getDocumentContent(docId) {
-  const docs = google.docs({ version: 'v1', auth });
+  // Simulate an API call delay
+  await new Promise(resolve => setTimeout(resolve, 1000));
   
-  try {
-    const response = await docs.documents.get({ documentId: docId });
-    const content = response.data.body.content
-      .filter(item => item.paragraph)
-      .map(item => item.paragraph.elements.map(element => element.textRun.content).join(''))
-      .join('\n');
-    
-    return content;
-  } catch (error) {
-    console.error('Error fetching document content:', error);
-    throw error;
-  }
+  // Return mock content based on the docId
+  return `This is mock content for document ${docId}.\n\nIt simulates the content that would be retrieved from a Google Doc.\n\nYou can replace this with actual API integration in a backend service.`;
+}
+
+export function extractDocId(url) {
+  const match = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
+  return match ? match[1] : null;
 }
